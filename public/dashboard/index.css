@@ -1,0 +1,290 @@
+
+/* Custom styles for Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden; /* Added to prevent global horizontal scroll */
+}
+/* Dark mode specific styles */
+html.dark {
+    background-color: #0F172A; /* Darker background for dark mode (slate-900) */
+    color: #e2e8f0; /* Light text */
+}
+html.dark .bg-white {
+    background-color: #1E293B; /* Darker background for cards/elements (slate-800) */
+}
+html.dark .text-gray-800 {
+    color: #e2e8f0;
+}
+html.dark .border-gray-200 {
+    border-color: #4a5568;
+}
+html.dark .shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+html.dark .hover\:bg-gray-100:hover {
+    background-color: #4a5568;
+}
+html.dark .text-gray-600 {
+    color: #cbd5e0;
+}
+html.dark .text-gray-500 {
+    color: #a0aec0;
+}
+html.dark .bg-gray-200 {
+    background-color: #4a5568;
+}
+html.dark .text-gray-700 {
+    color: #e2e8f0;
+}
+html.dark .hover\:bg-gray-300:hover {
+    background-color: #6a7a8a;
+}
+
+/* Hide scrollbar for product slider but allow scrolling */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Active tab indicator for About Us section */
+.tab-title.active {
+    border-bottom: 2px solid #4f46e5; /* Indigo-600 */
+    color: #4f46e5;
+}
+
+/* Language Dropdown specific styles */
+.language-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10; /* Ensure it's above other elements */
+    border-radius: 0.375rem; /* rounded-md */
+    top: 100%; /* Position below the button */
+    margin-top: 0.5rem; /* mt-2 */
+}
+
+.language-dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: right; /* Default for RTL */
+    transition: background-color 0.2s ease;
+}
+html[dir="ltr"] .language-dropdown-content {
+    left: 0; /* For LTR */
+    right: auto;
+}
+html[dir="rtl"] .language-dropdown-content {
+    right: 0; /* For RTL */
+    left: auto;
+}
+
+html[dir="ltr"] .language-dropdown-content a {
+    text-align: left; /* For LTR */
+}
+
+.language-dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.language-dropdown.show .language-dropdown-content {
+    display: block;
+}
+
+/* Dark mode for language dropdown */
+html.dark .language-dropdown-content {
+    background-color: #1E293B; /* Darker background for dark mode (slate-800) */
+}
+html.dark .language-dropdown-content a {
+    color: #e2e8f0;
+}
+html.dark .language-dropdown-content a:hover {
+    background-color: #4a5568;
+}
+
+/* Cart dropdown positioning for RTL/LTR */
+/* Ensure cart dropdown stays within bounds on small screens */
+#cart-dropdown {
+    position: absolute; /* Ensure it's absolutely positioned */
+    top: 100%; /* Position below the button */
+    margin-top: 0.5rem; /* mt-2 */
+    width: 256px; /* Fixed width as before */
+    box-sizing: border-box; /* Include padding/border in width */
+    z-index: 10; /* Ensure it's above other elements */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-out;
+    transform: scale(0.95);
+    transform-origin: top right; /* Default for RTL */
+}
+
+html[dir="ltr"] #cart-dropdown {
+    transform-origin: top left; /* For LTR */
+}
+
+/* Positioning relative to viewport edges for responsiveness */
+@media (max-width: 639px) { /* For screens smaller than sm breakpoint */
+    html[dir="rtl"] #cart-dropdown {
+        right: 1rem; /* Stick to 1rem from right viewport edge */
+        left: auto;
+        width: calc(100vw - 2rem); /* Take full width minus padding */
+    }
+    html[dir="ltr"] #cart-dropdown {
+        left: 1rem; /* Stick to 1rem from left viewport edge */
+        right: auto;
+        width: calc(100vw - 2rem); /* Take full width minus padding */
+    }
+}
+@media (min-width: 640px) { /* For sm and larger screens, align to parent */
+    html[dir="rtl"] #cart-dropdown {
+        right: 0;
+        left: auto;
+        width: 256px; /* Restore fixed width */
+    }
+    html[dir="ltr"] #cart-dropdown {
+        left: 0;
+        right: auto;
+        width: 256px; /* Restore fixed width */
+    }
+}
+
+/* Show cart dropdown on group hover */
+.group:hover #cart-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+
+/* Ensure main container is always within viewport and prevents horizontal scroll */
+.container {
+    width: 100%; /* Ensure container takes full width */
+    padding-left: 1rem; /* Add horizontal padding */
+    padding-right: 1rem; /* Add horizontal padding */
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (min-width: 640px) { /* sm breakpoint */
+    .container { max-width: 640px; }
+}
+@media (min-width: 768px) { /* md breakpoint */
+    .container { max-width: 768px; }
+}
+@media (min-width: 1024px) { /* lg breakpoint */
+    .container { max-width: 1024px; }
+}
+@media (min-width: 1280px) { /* xl breakpoint */
+    .container { max-width: 1280px; }
+}
+
+/* Modal specific styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+}
+
+html.dark .modal-content {
+    background-color: #1E293B;
+    border-color: #4a5568;
+    color: #e2e8f0;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+html.dark .close-button:hover,
+html.dark .close-button:focus {
+    color: #e2e8f0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Admin Dashboard Specific Styles */
+.admin-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+}
+@media (max-width: 1023px) { /* lg breakpoint */
+    .admin-sidebar {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Sidebar main link active state */
+.admin-sidebar-link.active {
+    background-color: #4f46e5; /* indigo-600 */
+    color: white;
+}
+.admin-sidebar-link.active:hover {
+    background-color: #4338ca; /* indigo-700 */
+}
+
+/* Sidebar submenu link active state */
+.admin-submenu-link.active {
+    background-color: #6366f1; /* indigo-500 */
+    color: white;
+    font-weight: 600; /* Semi-bold */
+}
+.admin-submenu-link.active:hover {
+    background-color: #4f46e5; /* indigo-600 */
+}
+
+/* Sidebar submenu styling */
+.admin-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+.admin-submenu.open {
+    max-height: 500px; /* Adjust as needed for content */
+    transition: max-height 0.5s ease-in;
+}
+

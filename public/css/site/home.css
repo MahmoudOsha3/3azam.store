@@ -1,0 +1,474 @@
+        :root {
+            --primary: #4f46e5;      /* بنفسجي عصري */
+            --secondary: #1f2937;    /* رمادي غامق للنصوص */
+            --accent: #f59e0b;       /* برتقالي للعروض */
+            --bg-light: #ffffff;
+            --bg-gray: #f8fafc;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--secondary);
+            direction: rtl;
+        }
+
+        /* Header & Navigation */
+        .main-navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #edf2f7;
+            transition: var(--transition);
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--secondary) !important;
+            margin: 0 10px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary) !important;
+        }
+
+        /* Hero Section */
+        .hero-wrapper {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 100px 0;
+            border-radius: 0 0 50px 50px;
+            margin-bottom: 50px;
+        }
+        .toast-error {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: #dc3545;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none;
+            z-index: 9999;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            line-height: 1.2;
+        }
+
+        /* Side Cart */
+        .side-cart {
+            position: fixed;
+            top: 0;
+            left: -100%; /* مخفية لجهة اليسار */
+            width: 380px;
+            height: 100%;
+            background: white;
+            z-index: 2000;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .side-cart.active {
+            left: 0;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            z-index: 1999;
+        }
+
+        .cart-overlay.active {
+            display: block;
+        }
+
+        /* Product Cards (للاستخدام لاحقاً) */
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            transition: var(--transition);
+            border: 1px solid #f1f5f9;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        /* تنسيقات إضافية للمنتجات */
+        .col-lg-2-4 {
+            flex: 0 0 auto;
+            width: 20%; /* لعمل 5 أعمدة في الصف */
+        }
+
+        @media (max-width: 992px) {
+            .col-lg-2-4 { width: 33.33%; } /* 3 أعمدة في التابلت */
+        }
+
+        @media (max-width: 576px) {
+            .col-lg-2-4 { width: 50%; } /* عمودان في الموبايل */
+        }
+
+        .product-card {
+            position: relative;
+            padding: 10px;
+        }
+
+        .product-actions {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            transition: 0.3s ease;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(5px);
+            padding: 10px 0;
+        }
+
+        .product-card:hover .product-actions {
+            bottom: 0;
+        }
+
+        .bg-gray-light {
+            background-color: #f8fafc;
+        }
+
+        .ls-1 { letter-spacing: 1px; }
+
+        /* تأثيرات الأزرار */
+        .btn-white {
+            background: white;
+            color: var(--secondary);
+            border: none;
+        }
+        .btn-white:hover {
+            background: var(--primary);
+            color: white;
+        }
+        /* تحويل الحاوية إلى Scroll في الشاشات الصغيرة فقط */
+        @media (max-width: 768px) {
+            .scroll-mobile {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 15px;
+                padding-bottom: 15px;
+                scrollbar-width: none; /* إخفاء شريط التمرير في فايرفوكس */
+            }
+
+            .scroll-mobile::-webkit-scrollbar {
+                display: none; /* إخفاء شريط التمرير في كروم وسفاري */
+            }
+
+            .scroll-mobile .col-product {
+                flex: 0 0 75%; /* الكارت يأخذ 75% من عرض الشاشة ليظهر طرف الكارت التالي */
+                scroll-snap-align: start;
+            }
+        }
+
+        /* تأثير التجميد (Loading) عند إضافة منتج */
+        .loading-overlay {
+            position: relative;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* تنبيه صغير عند الإضافة (Toast) */
+        .toast-success {
+            position: fixed;
+            top: 40px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            z-index: 3000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+            /* الحاوية الأساسية للكارت */
+            .product-card {
+                background: #ffffff;
+                border-radius: 20px;
+                padding: 12px;
+                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                border: 1px solid #f0f0f0;
+                position: relative;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .product-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+                border-color: var(--primary);
+            }
+
+            /* منطقة الصورة والتاجات */
+            .image-wrapper {
+                position: relative;
+                border-radius: 15px;
+                overflow: hidden;
+                background: #f9f9f9;
+                aspect-ratio: 1/1;
+            }
+
+            .image-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.6s ease;
+            }
+
+            .product-card:hover .image-wrapper img {
+                transform: scale(1.1);
+            }
+
+            /* تاجات الخصم */
+            .discount-badge {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: #ef4444;
+                color: white;
+                padding: 4px 10px;
+                border-radius: 8px;
+                font-size: 12px;
+                font-weight: bold;
+                z-index: 2;
+            }
+
+            /* منطقة التفاصيل */
+            .product-info {
+                padding: 15px 5px 5px;
+                flex-grow: 1;
+            }
+
+            .category-name {
+                font-size: 11px;
+                color: #94a3b8;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 5px;
+                display: block;
+            }
+
+            .product-title {
+                font-size: 15px;
+                font-weight: 700;
+                color: #1e293b;
+                margin-bottom: 8px;
+                line-height: 1.4;
+                height: 42px;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            /* تنسيق السعر */
+            .price-container {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 15px;
+            }
+
+            .current-price {
+                font-size: 18px;
+                font-weight: 800;
+                color: var(--primary);
+            }
+
+            .old-price {
+                font-size: 13px;
+                color: #94a3b8;
+                text-decoration: line-through;
+            }
+
+            /* الأزرار */
+            .card-buttons {
+                display: flex;
+                gap: 8px;
+            }
+
+            .btn-details {
+                flex: 1;
+                background: #f1f5f9;
+                color: #475569;
+                border: none;
+                padding: 8px;
+                border-radius: 10px;
+                font-size: 13px;
+                font-weight: 600;
+                transition: 0.3s;
+                text-decoration: none;
+                text-align: center;
+            }
+
+            .btn-details:hover {
+                background: #e2e8f0;
+                color: #1e293b;
+            }
+
+            .btn-add-cart {
+                flex: 2;
+                background: var(--primary);
+                color: white;
+                border: none;
+                padding: 8px;
+                border-radius: 10px;
+                font-size: 13px;
+                font-weight: 600;
+                transition: 0.3s;
+            }
+
+            .btn-add-cart:hover {
+                background: #4338ca;
+                box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            }
+
+            /* تحسين توزيع العرض */
+            .product-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px; /* مسافة بين الكروت */
+            }
+
+            /* كلاس المنتج المعدل ليكون أعرض */
+            .col-product {
+                flex: 0 0 calc(25% - 20px); /* 4 منتجات في الصف في الشاشات الكبيرة */
+                max-width: calc(25% - 20px);
+            }
+
+            /* التجاوب (Responsive) */
+            @media (max-width: 1200px) {
+                .col-product {
+                    flex: 0 0 calc(33.333% - 20px); /* 3 منتجات في التابلت الكبير */
+                    max-width: calc(33.333% - 20px);
+                }
+            }
+
+            @media (max-width: 768px) {
+                /* تفعيل السكرول الأفقي في الموبايل */
+                .scroll-mobile {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    overflow-x: auto;
+                    gap: 15px;
+                    padding: 10px 5px 20px;
+                    scroll-snap-type: x mandatory;
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                .col-product {
+                    flex: 0 0 280px; /* عرض ثابت كبير للكارت في الموبايل عند السكرول */
+                    max-width: 280px;
+                    scroll-snap-align: start;
+                }
+
+                .scroll-mobile::-webkit-scrollbar {
+                    height: 4px;
+                }
+                .scroll-mobile::-webkit-scrollbar-thumb {
+                    background: #e2e8f0;
+                    border-radius: 10px;
+                }
+            }
+
+            /* تحسينات الكارت الفنية */
+            .product-card {
+                width: 100%; /* ليملأ المساحة المتاحة له */
+                min-height: 420px;
+                background: #fff;
+                border-radius: 20px;
+                border: 1px solid #f1f5f9;
+                padding: 15px;
+                transition: 0.3s ease;
+            }
+
+/* تحسينات الموبايل للهيدر */
+@media (max-width: 991px) {
+    .main-navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar-collapse {
+        background: white;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+        border-top: 1px solid #eee;
+    }
+
+    /* تصغير حجم الأزرار في الموبايل عشان المكان */
+    .btn-sm-mobile {
+        padding: 5px 12px;
+        font-size: 14px;
+    }
+}
+
+/* إخفاء أيقونة التوجلر الافتراضية واستخدام فونت أوسم لشكل أشيك */
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-brand {
+    margin-left: 0; /* تأكد من المحاذاة في RTL */
+}
+
+.side-cart {
+    position: fixed;
+    top: 0;
+    left: -100%; /* مخفية */
+    width: 380px;
+    height: 100vh; /* طول كامل الشاشة */
+    background: #fff;
+    z-index: 2000;
+    transition: 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column; /* ترتيب العناصر عمودياً */
+    box-shadow: 5px 0 20px rgba(0,0,0,0.1);
+}
+
+.side-cart.active {
+    left: 0; /* تظهر عند تفعيلها */
+}
+
+@media (max-width: 500px) {
+    .side-cart {
+        width: 100%; /* تأخذ كامل الشاشة في الموبايل الصغير */
+    }
+}
+
+/* منطقة المنتجات القابلة للتمرير */
+#cartItems {
+    flex: 1 1 auto; /* تأخذ كل المساحة المتاحة وتسمح بالتمرير */
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+/* منطقة الإجمالي والزر (ثابتة في الأسفل) */
+.cart-footer {
+    flex-shrink: 0; /* تمنع انكماش الجزء السفلي */
+    background: #fff;
+}

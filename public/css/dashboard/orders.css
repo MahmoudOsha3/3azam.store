@@ -1,0 +1,22 @@
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+
+        /* Dashboard Stats Cards */
+        .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 15px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border-right: 5px solid transparent; }
+        .stat-card i { font-size: 2rem; opacity: 0.8; }
+        .stat-card div h3 { margin: 0; font-size: 1.5rem; color: var(--secondary); }
+        .stat-card div p { margin: 5px 0 0; color: #888; font-size: 0.9rem; }
+
+        /* Order Table Customizations */
+        .orders-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; }
+        .orders-table th, .orders-table td { padding: 15px; text-align: right; border-bottom: 1px solid #eee; }
+
+        .status-pill { padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .status-pending { background: #fff4e5; color: #b45d00; } /* قيد الانتظار */
+        .status-preparing { background: #e1f5fe; color: #01579b; } /* يتم التحضير */
+        .status-completed { background: #e8f5e9; color: #1b5e20; } /* تم التوصيل */
+
+        /* Action Buttons Spacing */
+        .action-btns { display: flex; gap: 12px; }
+        .btn-round { width: 35px; height: 35px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; transition: 0.3s; }
+        .btn-round:hover { transform: scale(1.1); }
