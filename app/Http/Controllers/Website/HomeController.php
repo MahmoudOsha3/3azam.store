@@ -18,6 +18,7 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::where('status' , 'active')->take(10)->get() ;
-        return view('pages.website.home.index', compact('products'));
+        $categories = $this->categoryRepository->getCategories() ;
+        return view('pages.website.home.index', compact('products' , 'categories'));
     }
 }

@@ -16,7 +16,7 @@
             <span>الإجمالي:</span>
             <span id="cartTotal" class="text-primary">0 ج.م</span>
         </div>
-        <a href="{{route('carts.index')}}" class="btn btn-primary w-100 py-3 fw-bold shadow-sm rounded-3 text-white text-decoration-none d-block text-center">
+        <a style="margin-bottom: 90px" href="{{route('carts.index')}}" class="btn btn-primary w-100 py-3 fw-bold shadow-sm rounded-3 text-white text-decoration-none d-block text-center">
             إتمام عملية الشراء
         </a>
     </div>

@@ -78,6 +78,144 @@
         display: inline-block;
         margin-bottom: 10px;
     }
+    /* categories */
+<style>
+:root {
+    --cat-bg: #fdfdfd;
+    --cat-border: #f0f0f0;
+    --cat-size: 110px;
+}
+
+.premium-categories {
+    background: #ffffff;
+}
+
+.category-slider-container {
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 0;
+}
+
+.category-slider-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.category-track {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start; /* سيتغير للمنتصف بالـ JS لو العناصر قليلة */
+}
+
+/* الكارت الاحترافي */
+.cat-card {
+    flex: 0 0 auto;
+    text-decoration: none;
+    text-align: center;
+    width: var(--cat-size);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cat-image-wrapper {
+    width: var(--cat-size);
+    height: var(--cat-size);
+    border-radius: 50%;
+    position: relative;
+    padding: 5px; /* مسافة بين الصورة والإطار */
+    background: var(--cat-bg);
+    border: 1px solid var(--cat-border);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+}
+
+.cat-image-wrapper img {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    border-radius: 50%;
+    z-index: 2;
+    transition: transform 0.5s ease;
+}
+
+/* التأثير السحري عند الهوفر */
+.cat-card:hover .cat-image-wrapper {
+    border-color: var(--primary);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(79, 70, 229, 0.12);
+    background: #fff;
+}
+
+.cat-card:hover img {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.cat-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.cat-card:hover .cat-overlay {
+    opacity: 1;
+}
+
+/* نصوص الأقسام */
+.cat-info {
+    margin-top: 15px;
+}
+
+.cat-name {
+    display: block;
+    color: #2d3436;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.cat-count {
+    font-size: 0.75rem;
+    color: #a0a0a0;
+    font-weight: 500;
+}
+
+.cat-card:hover .cat-name {
+    color: var(--primary);
+}
+
+/* أزرار السكرول الاحترافية */
+.scroll-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid #eee;
+    background: #fff;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.scroll-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    :root { --cat-size: 85px; }
+    .category-track { gap: 15px; }
+}
+</style>
+
 </style>
 @endsection
 
@@ -100,6 +238,38 @@
             </div>
         </div>
     </header>
+
+<section class="premium-categories py-5">
+    <div class="container">
+        <div class="section-header d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <h2 class="fw-bold mb-0">تسوق حسب القسم</h2>
+                <p class="text-muted small mb-0">اكتشف أحدث التشكيلات العالمية</p>
+            </div>
+            <div class="d-none d-md-flex gap-2">
+                <button class="scroll-btn prev"><i class="fas fa-chevron-right"></i></button>
+                <button class="scroll-btn next"><i class="fas fa-chevron-left"></i></button>
+            </div>
+        </div>
+
+        <div class="category-slider-container">
+            <div class="category-track">
+                @foreach($categories as $category)
+                <a href="#" class="cat-card">
+                    <div class="cat-image-wrapper">
+                        <div class="cat-overlay"></div>
+                        <img src="{{ $category->image_url ?? 'https://www.masrtimes.com/UploadCache/libfiles/51/8/600x338o/17.png' }}" alt="{{ $category->name }}">
+                    </div>
+                    <div class="cat-info">
+                        <span class="cat-name">{{ $category->name }}</span>
+                        <span class="cat-count">120 منتج</span>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
 
     <section class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">

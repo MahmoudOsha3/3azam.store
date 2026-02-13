@@ -46,9 +46,7 @@
                 <span style="font-size: 0.9rem;">{{ $properties['label'] }}</span>
             </a>
         @endforeach
-    </div>
-
-    <div style="padding: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
+            <div style="padding: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
         <form action="{{route('logout')}}" method="POST">
             @csrf
             <button type="submit" style="width: 100%; background: rgba(255, 71, 87, 0.1); border: none; color: #ff4757; padding: 10px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.85rem; font-weight: bold; transition: 0.3s;"
@@ -59,4 +57,7 @@
             </button>
         </form>
     </div>
+    </div>
+
+
 </aside>

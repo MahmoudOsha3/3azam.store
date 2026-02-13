@@ -204,7 +204,6 @@
             <input type="radio" name="type_payment" value="cashOnDelivery" checked class="d-none">
             <i class="fas fa-check-circle text-accent d-block"></i>
         </div>
-    </form>
 
         <div class="payment-card shadow-sm" onclick="setPayment(this, 'wallet')">
             <div class="payment-icon"><i class="fas fa-mobile-alt"></i></div>
@@ -235,6 +234,8 @@
     <button type="submit" form="finalOrderForm" class="btn-place-order">
         <i class="fas fa-shield-alt me-2"></i> إتمام الطلب بأمان
     </button>
+    </form>
+
 
     <p class="text-center text-muted mt-3" style="font-size: 11px;">
         سيتم شحن طلبك إلى: <b>{{ auth()->user()->address }}</b>

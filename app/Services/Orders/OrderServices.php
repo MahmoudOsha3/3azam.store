@@ -49,7 +49,7 @@ class OrderServices
                                 ->update([
                                     'stock' => DB::raw("stock - {$cart->quantity}"),
                                     'sales_count' => DB::raw("sales_count + {$cart->quantity}"),
-                                ]) ;
+                                ]);
                 if ($updated === 0){
                     throw new Exception("Not enough stock for product {$cart->product_id}");
                 }

@@ -101,15 +101,20 @@
                 <label class="form-label">البريد الإلكتروني</label>
                 <i class="fas fa-envelope"></i>
                 <input type="email" name="email" class="form-control-custom" placeholder="example@mail.com" required>
+                @error('email')
+                    <span style="color:brown">{{ $message }}</span>
+                @enderror
             </div>
 
             <div class="input-group-custom">
                 <div class="d-flex justify-content-between">
-                    <a href="#" class="small text-primary text-decoration-none">نسيت كلمة المرور؟</a>
                     <label class="form-label">كلمة المرور</label>
                 </div>
                 <i class="fas fa-lock"></i>
                 <input type="password" name="password" class="form-control-custom" placeholder="••••••••" required>
+                    @error('password')
+                        <span style="color:brown">{{ $message }}</span>
+                    @enderror
             </div>
 
             <button type="submit" class="btn-auth">دخول</button>
