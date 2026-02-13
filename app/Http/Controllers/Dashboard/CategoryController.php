@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Traits\ManageApiTrait;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -30,9 +32,18 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        $category = Category::create($request->validated()) ;
-        return $this->createApi($category ,'Category created successfully');
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $imageName = Str::uuid() . '.' . $request->image->getClientOriginalExtension();
+            $request->image->storeAs('', $imageName, 'categories');
+            $data['image'] = $imageName;
+        }
+        $category = Category::create($data);
+
+        return $this->createApi($category, 'Category created successfully');
     }
+
 
     public function show(Category $category)
     {
@@ -42,9 +53,25 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, Category $category)
     {
-        $category = $category->update($request->validated()) ;
-        return $this->successApi($category , 'Category updated successfully') ;
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+
+            if ($category->image && Storage::disk('categories')->exists($category->image)) {
+                Storage::disk('categories')->delete($category->image);
+            }
+
+            $imageName = Str::uuid() . '.' . $request->image->getClientOriginalExtension();
+            $request->image->storeAs('', $imageName, 'categories');
+
+            $data['image'] = $imageName;
+        }
+
+        $category->update($data);
+
+        return $this->successApi($category, 'Category updated successfully');
     }
+
 
     public function destroy(Category $category)
     {

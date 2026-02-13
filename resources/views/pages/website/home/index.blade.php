@@ -191,6 +191,143 @@
         font-size: .8rem;
     }
 }
+/* =======================
+   Ramadan Boxes
+======================= */
+
+.ramadan-boxes {
+    background: #fafafa;
+}
+
+/* scroll container */
+.ramadan-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 5px 25px;
+    scroll-behavior: smooth;
+}
+
+/* hide scrollbar */
+.ramadan-scroll::-webkit-scrollbar {
+    display: none;
+}
+.ramadan-scroll {
+    scrollbar-width: none;
+}
+
+/* card */
+.ramadan-card {
+    flex: 0 0 280px;
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    transition: transform .4s ease, box-shadow .4s ease;
+    perspective: 1000px;
+}
+
+.ramadan-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,.15);
+}
+
+/* image */
+.image-3d {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .6s cubic-bezier(.22,1,.36,1);
+}
+
+.image-3d img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.ramadan-card:hover .image-3d {
+    transform: rotateX(8deg) rotateY(-8deg) scale(1.05);
+}
+
+/* content */
+.ramadan-content {
+    padding: 16px;
+    text-align: center;
+}
+
+.ramadan-title {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+/* price */
+.ramadan-price {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+}
+
+.ramadan-price .price {
+    font-weight: 900;
+    font-size: 1.05rem;
+    color: var(--primary);
+}
+
+.ramadan-price .old-price {
+    font-size: .85rem;
+    color: #aaa;
+    text-decoration: line-through;
+}
+
+/* soft button */
+.btn-primary-soft {
+    background: rgba(13,110,253,.1);
+    color: var(--primary);
+    border-radius: 50px;
+    font-weight: 700;
+    padding: 10px;
+    transition: .3s;
+}
+
+.btn-primary-soft:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.ramadan-card:hover {
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.18),
+        0 0 35px rgba(255, 215, 150, .25);
+}
+
+/* =======================
+   Responsive
+======================= */
+
+@media (max-width: 768px) {
+    .ramadan-card {
+        flex: 0 0 240px;
+    }
+
+    .ramadan-image {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ramadan-card {
+        flex: 0 0 210px;
+    }
+
+    .ramadan-image {
+        height: 160px;
+    }
+}
+
 
 
     </style>
@@ -203,14 +340,15 @@
                 <div class="col-lg-6 hero-content">
                     <span class="badge bg-primary-subtle text-primary px-3 py-2 mb-3 fw-bold">وصل حديثاً لعام 2026</span>
                     <h1>تجربة تسوق <br><span style="color: var(--primary);">بلا حدود.</span></h1>
-                    <p class="text-muted fs-5 my-4">اكتشف أرقى المنتجات العالمية بأفضل الأسعار مع خدمة توصيل سريعة وضمان استرجاع حقيقي.</p>
+                    <p class="text-muted fs-5 my-4">اكتشف  المنتجات الرمضانية بأفضل الأسعار مع خدمة توصيل سريعة وضمان استرجاع حقيقي.</p>
                     <div class="d-flex gap-3">
                         <a href="{{ route('categories.index') }}" class="btn btn-primary btn-lg px-5 py-3 shadow">تسوق الآن</a>
                         <a href="#products" class="btn btn-outline-dark btn-lg px-5 py-3">اكتشف المزيد</a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center">
-                    <img src="https://help.iubenda.com/wp-content/uploads/2023/03/ecommerce-website-builders.png" class="img-fluid rounded-4 shadow-lg" alt="Main Product">
+                    <img src="https://jamalouki.net/uploads/imported_images/uploads/article/default_article/92ba20246f2f364e6907972eaac0150a.webp" class="img-fluid rounded-4 shadow-lg" alt="Main Product">
+                    {{-- <img src="https://help.iubenda.com/wp-content/uploads/2023/03/ecommerce-website-builders.png" class="img-fluid rounded-4 shadow-lg" alt="Main Product"> --}}
                 </div>
             </div>
         </div>
@@ -272,7 +410,7 @@
                     </div>
 
                     <div class="card-buttons d-flex gap-2">
-                        <a href="#" class="btn-details flex-fill py-2 px-1">
+                        <a href="{{url("product/$product->id")}}" class="btn-details flex-fill py-2 px-1">
                             <i class="fas fa-eye me-1"></i> التفاصيل
                         </a>
                         <button class="btn-add-cart add-to-cart flex-fill py-2 px-1"
@@ -288,6 +426,43 @@
             @endforeach
         </div>
     </section>
+
+    {{-- <section class="ramadan-boxes py-5">
+        <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold m-0" style="font-size: 1.8rem;">بوكسات رمضان<br> <span style="font-size: 12px">مناسب للهدايا الرمضانية</span></h2>
+            <a href="#" class="btn btn-outline-primary rounded-pill px-4">مشاهدة الكل</a>
+        </div>
+
+            <div class="ramadan-scroll">
+                @foreach($products as $box)
+                <div class="ramadan-card">
+                    <div class="ramadan-image">
+                        <div class="image-3d">
+                            <img src="{{ $box->image_url }}" alt="{{ $box->title }}">
+                        </div>
+                    </div>
+
+                    <div class="ramadan-content">
+                        <h5 class="ramadan-title">{{ $box->title }}</h5>
+
+                        <div class="ramadan-price">
+                            <span class="price">{{ number_format($box->price) }} ج.م</span>
+                            @if($box->compare_price)
+                            <span class="old-price">{{ number_format($box->compare_price) }} ج.م</span>
+                            @endif
+                        </div>
+
+                        <a href="{{ url("product/$product->id") }}" class="btn btn-primary-soft w-100 mt-3">
+                            عرض التفاصيل
+                        </a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section> --}}
+
 
 
     <div class="toast-success" id="cartToast">تمت إضافة المنتج للسلة بنجاح!</div>
@@ -330,7 +505,8 @@
         </div>
     </section>
 
-        <section class="container py-5" id="locations">
+
+    <section class="container py-5" id="locations">
         <div class="text-center mb-5">
             <h6 class="text-primary fw-bold text-uppercase ls-1">فروعنا</h6>
             <h2 class="fw-bold">أين تجدنا؟</h2>

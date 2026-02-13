@@ -23,9 +23,16 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
+        $isUpdate = $this->isMethod('put') || $this->isMethod('patch');
         return [
             'name' => 'required|string|min:4|max:30',
-            'parent_id' => 'nullable|exists:categories,id'
+            'parent_id' => 'nullable|exists:categories,id' ,
+            'image' => [
+                $isUpdate ? 'nullable' : 'required',
+                'image' ,
+                'mimes:jpeg,png,jpg,webp',
+                'max:2048',
+            ]
         ];
     }
 }

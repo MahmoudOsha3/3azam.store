@@ -56,7 +56,7 @@
             </div>
 
             <div class="position-relative ms-1 ms-md-2" style="cursor: pointer;" id="openCart">
-                <i class="fas fa-shopping-bag fs-4"></i>
+                <i class="fas fa-shopping-cart" style="font-size: 20px"></i>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartBadge" style="font-size: 0.7rem;">0</span>
             </div>
 
