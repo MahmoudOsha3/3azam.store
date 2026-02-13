@@ -79,144 +79,121 @@
         margin-bottom: 10px;
     }
     /* categories */
-<style>
-:root {
-    --cat-bg: #fdfdfd;
-    --cat-border: #f0f0f0;
-    --cat-size: 110px;
-}
+/* =======================
+   Centered Circle Categories
+======================= */
 
 .premium-categories {
-    background: #ffffff;
+    background: #fafafa;
 }
 
+/* container */
 .category-slider-container {
-    overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
-    -webkit-overflow-scrolling: touch;
-    padding: 10px 0;
+    width: 100%;
 }
 
-.category-slider-container::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
-}
-
+/* track */
 .category-track {
     display: flex;
-    gap: 20px;
-    justify-content: flex-start; /* سيتغير للمنتصف بالـ JS لو العناصر قليلة */
+    justify-content: center; /* 🔥 في المنتصف */
+    align-items: flex-start;
+    gap: 22px;
+    overflow-x: auto;
+    padding: 15px 0 25px;
+    scroll-behavior: smooth;
 }
 
-/* الكارت الاحترافي */
+/* hide scrollbar */
+.category-track::-webkit-scrollbar {
+    display: none;
+}
+.category-track {
+    scrollbar-width: none;
+}
+
+/* card */
 .cat-card {
     flex: 0 0 auto;
-    text-decoration: none;
+    width: 130px;
     text-align: center;
-    width: var(--cat-size);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    color: #111;
+    transition: transform .35s ease;
 }
 
+.cat-card:hover {
+    transform: translateY(-6px);
+}
+
+/* circle image */
 .cat-image-wrapper {
-    width: var(--cat-size);
-    height: var(--cat-size);
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 10px;
     border-radius: 50%;
-    position: relative;
-    padding: 5px; /* مسافة بين الصورة والإطار */
-    background: var(--cat-bg);
-    border: 1px solid var(--cat-border);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+    overflow: hidden;
+    box-shadow: 0 12px 25px rgba(0,0,0,.12);
+    transition: transform .4s ease;
+}
+
+.cat-card:hover .cat-image-wrapper {
+    transform: scale(1.08);
 }
 
 .cat-image-wrapper img {
-    width: 90%;
-    height: 90%;
-    object-fit: contain;
-    border-radius: 50%;
-    z-index: 2;
-    transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* التأثير السحري عند الهوفر */
-.cat-card:hover .cat-image-wrapper {
-    border-color: var(--primary);
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(79, 70, 229, 0.12);
-    background: #fff;
-}
-
-.cat-card:hover img {
-    transform: scale(1.1) rotate(5deg);
-}
-
-.cat-overlay {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%);
-    opacity: 0;
-    transition: 0.3s;
-}
-
-.cat-card:hover .cat-overlay {
-    opacity: 1;
-}
-
-/* نصوص الأقسام */
-.cat-info {
-    margin-top: 15px;
-}
-
+/* name */
 .cat-name {
-    display: block;
-    color: #2d3436;
+    font-size: .95rem;
     font-weight: 700;
-    font-size: 0.95rem;
-    transition: 0.3s;
+    line-height: 1.3;
 }
 
-.cat-count {
-    font-size: 0.75rem;
-    color: #a0a0a0;
-    font-weight: 500;
-}
+/* =======================
+   Responsive
+======================= */
 
-.cat-card:hover .cat-name {
-    color: var(--primary);
-}
-
-/* أزرار السكرول الاحترافية */
-.scroll-btn {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    border: 1px solid #eee;
-    background: #fff;
-    color: #555;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.scroll-btn:hover {
-    background: var(--primary);
-    color: #fff;
-    border-color: var(--primary);
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-    :root { --cat-size: 85px; }
-    .category-track { gap: 15px; }
-}
-</style>
+    .category-track {
+        justify-content: flex-start; /* الموبايل scroll طبيعي */
+        padding-left: 10px;
+    }
 
-</style>
+    .cat-card {
+        width: 100px;
+    }
+
+    .cat-image-wrapper {
+        width: 90px;
+        height: 90px;
+    }
+
+    .cat-name {
+        font-size: .85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cat-card {
+        width: 85px;
+    }
+
+    .cat-image-wrapper {
+        width: 75px;
+        height: 75px;
+    }
+
+    .cat-name {
+        font-size: .8rem;
+    }
+}
+
+
+    </style>
 @endsection
 
 @section('content')
@@ -228,8 +205,8 @@
                     <h1>تجربة تسوق <br><span style="color: var(--primary);">بلا حدود.</span></h1>
                     <p class="text-muted fs-5 my-4">اكتشف أرقى المنتجات العالمية بأفضل الأسعار مع خدمة توصيل سريعة وضمان استرجاع حقيقي.</p>
                     <div class="d-flex gap-3">
-                        <button class="btn btn-primary btn-lg px-5 py-3 shadow">تسوق الآن</button>
-                        <button class="btn btn-outline-dark btn-lg px-5 py-3">اكتشف المزيد</button>
+                        <a href="{{ route('categories.index') }}" class="btn btn-primary btn-lg px-5 py-3 shadow">تسوق الآن</a>
+                        <a href="#products" class="btn btn-outline-dark btn-lg px-5 py-3">اكتشف المزيد</a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center">
@@ -239,39 +216,29 @@
         </div>
     </header>
 
-<section class="premium-categories py-5">
-    <div class="container">
-        <div class="section-header d-flex justify-content-between align-items-end mb-4">
-            <div>
-                <h2 class="fw-bold mb-0">تسوق حسب القسم</h2>
-                <p class="text-muted small mb-0">اكتشف أحدث التشكيلات العالمية</p>
-            </div>
-            <div class="d-none d-md-flex gap-2">
-                <button class="scroll-btn prev"><i class="fas fa-chevron-right"></i></button>
-                <button class="scroll-btn next"><i class="fas fa-chevron-left"></i></button>
-            </div>
-        </div>
+    <section class="premium-categories py-5">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-1">تسوق حسب القسم</h2>
+            <p class="text-muted small mb-4">اختر القسم الذي يناسبك</p>
 
-        <div class="category-slider-container">
-            <div class="category-track">
-                @foreach($categories as $category)
-                <a href="#" class="cat-card">
-                    <div class="cat-image-wrapper">
-                        <div class="cat-overlay"></div>
-                        <img src="{{ $category->image_url ?? 'https://www.masrtimes.com/UploadCache/libfiles/51/8/600x338o/17.png' }}" alt="{{ $category->name }}">
-                    </div>
-                    <div class="cat-info">
+            <div class="category-slider-container">
+                <div class="category-track">
+                    @foreach($categories as $category)
+                    <a href="{{ route('categories.index') }}" class="cat-card">
+                        <div class="cat-image-wrapper">
+                            <img src="{{ $category->image_url ?? 'https://www.masrtimes.com/UploadCache/libfiles/51/8/600x338o/17.png' }}"
+                                alt="{{ $category->name }}">
+                        </div>
                         <span class="cat-name">{{ $category->name }}</span>
-                        <span class="cat-count">120 منتج</span>
-                    </div>
-                </a>
-                @endforeach
+                    </a>
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-    <section class="container py-5">
+
+    <section class="container py-5" id="products">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold m-0" style="font-size: 1.8rem;">أحدث المنتجات</h2>
             <a href="#" class="btn btn-outline-primary rounded-pill px-4">مشاهدة الكل</a>
@@ -608,4 +575,27 @@
     toast.text(message).fadeIn(200).delay(2500).fadeOut(200);
     }
 </script>
+<script>
+const track = document.querySelector('.category-track');
+let isDown = false, startX, scrollLeft;
+
+track.addEventListener('mousedown', e => {
+    isDown = true;
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+});
+
+track.addEventListener('mouseleave', () => isDown = false);
+track.addEventListener('mouseup', () => isDown = false);
+
+track.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft - (x - startX) * 1.2;
+});
+</script>
+
+
+
 @endsection

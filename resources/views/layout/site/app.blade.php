@@ -9,8 +9,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/site/home.css') }}">
     @yield('css')
+    <style>
+        .top-marquee {
+    overflow: hidden;
+    position: relative;
+    font-weight: 700;
+}
+
+.top-marquee .marquee {
+    display: flex;
+    gap: 50px;
+    white-space: nowrap;
+    animation: marqueeAnim 18s linear infinite;
+}
+
+.top-marquee .marquee span {
+    display: inline-block;
+}
+
+/* Animation */
+@keyframes marqueeAnim {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .top-marquee .marquee {
+        animation: marqueeAnim 25s linear infinite;
+        gap: 30px;
+    }
+    .top-marquee {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-marquee {
+        font-size: 0.75rem;
+    }
+}
+
+    </style>
 </head>
 <body>
+    <section class="top-marquee bg-primary text-white py-2">
+        <div class="marquee">
+            <span>🔥 أفضل العروض الآن بمناسبة رمضان! | 🚚 توصيل سريع لجميع المدن | 🛍️ اكتشف المنتجات الجديدة يومياً من عظمه ستور | ⭐ ضمان أصالة المنتجات</span>
+            <span>🔥 أفضل العروض الآن بمناسبة رمضان! | 🚚 توصيل سريع لجميع المدن | 🛍️ اكتشف المنتجات الجديدة يومياً من عظمه ستور | ⭐ ضمان أصالة المنتجات</span>
+        </div>
+    </section>
 
     @include('layout.site.header')
 

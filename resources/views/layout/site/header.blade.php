@@ -26,7 +26,7 @@
 
 <nav class="navbar navbar-expand-lg main-navbar sticky-top">
     <div class="container">
-        <a class="navbar-brand fw-bold fs-3" href="#" style="color: var(--primary);">3azma Store</a>
+        <a class="navbar-brand fw-bold fs-3" href="{{ route('home') }}" style="color: var(--primary);">3azma Store</a>
 
         <div class="d-flex align-items-center gap-2 gap-md-3 order-lg-last">
 
