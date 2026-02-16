@@ -54,6 +54,9 @@
             max-height: 90vh; display: flex; flex-direction: column;
         }
 
+        /* المودال الخاص بالتأكيد (صغير) */
+        .modal-confirm { max-width: 400px; text-align: center; padding: 30px; }
+
         /* Wizard Tabs */
         .wizard-nav { display: flex; background: #f8fafc; border-bottom: 1px solid var(--border); overflow-x: auto; }
         .nav-link { padding: 15px 25px; cursor: pointer; color: var(--text-muted); font-weight: bold; transition: 0.3s; position: relative; white-space: nowrap; }
@@ -81,15 +84,17 @@
         .page-btn:disabled { cursor: not-allowed; opacity: 0.5; }
 
         .btn-primary { background: var(--primary); color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
-        .btn-primary:hover { opacity: 0.9; }
+        .btn-danger { background: var(--danger); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-secondary { background: #cbd5e1; color: var(--secondary); border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
 
         .status-badge { padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; white-space: nowrap; }
         .bg-success-light { background: #dcfce7; color: #166534; }
 
-        /* Media Queries للهواتف */
+        .delete-btn { color: var(--danger); border: 1px solid #fee2e2; background: #fef2f2; }
+        .delete-btn:hover { background: var(--danger); color: white; }
+
         @media (max-width: 768px) {
             .info-grid { grid-template-columns: 1fr; }
-            .info-card { grid-column: span 1 !important; }
             .search-container button { width: 100%; justify-content: center; }
             .pagination-wrapper { justify-content: center; text-align: center; }
         }
@@ -129,11 +134,12 @@
     </div>
 </main>
 
+{{-- مودال عرض البيانات --}}
 <div id="userWizard" class="modal-overlay">
     <div class="modal-box">
         <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border);">
             <h3 style="margin:0; font-size: 18px;">ملف المستخدم: <span id="userNameHeader" style="color:var(--primary)"></span></h3>
-            <button onclick="closeWizard()" style="background:none; border:none; font-size: 24px; cursor:pointer; color:#94a3b8">&times;</button>
+            <button onclick="closeModals()" style="background:none; border:none; font-size: 24px; cursor:pointer; color:#94a3b8">&times;</button>
         </div>
 
         <div class="wizard-nav">
@@ -171,7 +177,22 @@
         </div>
 
         <div style="padding: 15px 20px; background: #f8fafc; text-align: left; border-top: 1px solid var(--border);">
-            <button onclick="closeWizard()" style="padding: 10px 25px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; color: var(--secondary); cursor: pointer; font-weight: 600;">إغلاق</button>
+            <button onclick="closeModals()" style="padding: 10px 25px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; color: var(--secondary); cursor: pointer; font-weight: 600;">إغلاق</button>
+        </div>
+    </div>
+</div>
+
+{{-- مودال تأكيد الحذف --}}
+<div id="deleteConfirmModal" class="modal-overlay">
+    <div class="modal-box modal-confirm">
+        <div style="color: var(--danger); font-size: 50px; margin-bottom: 15px;">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h3 style="margin-bottom: 10px;">تأكيد الحذف</h3>
+        <p style="color: var(--text-muted); margin-bottom: 25px;">هل أنت متأكد من حذف هذا المستخدم نهائياً؟ لا يمكن التراجع عن هذا الإجراء.</p>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button id="confirmDeleteBtn" class="btn-danger">نعم، احذف</button>
+            <button onclick="closeModals()" class="btn-secondary">إلغاء</button>
         </div>
     </div>
 </div>
@@ -180,6 +201,7 @@
 @section('js')
 <script>
     let token = localStorage.getItem('admin_token');
+    let userIdToDelete = null;
 
     $(document).ready(function() {
         fetchUsers(1);
@@ -189,7 +211,12 @@
         });
 
         $(window).on('click', function(e) {
-            if ($(e.target).hasClass('modal-overlay')) closeWizard();
+            if ($(e.target).hasClass('modal-overlay')) closeModals();
+        });
+
+        // تنفيذ الحذف عند الضغط على زر التأكيد
+        $('#confirmDeleteBtn').on('click', function() {
+            if(userIdToDelete) executeDelete(userIdToDelete);
         });
     });
 
@@ -228,9 +255,14 @@
                     <td>${new Date(u.created_at).toLocaleDateString('ar-EG')}</td>
                     <td>${u.address || '<span style="color:#cbd5e1">غير محدد</span>'}</td>
                     <td style="text-align: center;">
-                        <button title="عرض التفاصيل" class="page-btn" style="width:auto; padding:0 12px; height:32px" onclick="showWizard(${u.id})">
-                            <i class="fas fa-eye"></i>
-                        </button>
+                        <div style="display: flex; gap: 5px; justify-content: center;">
+                            <button title="عرض التفاصيل" class="page-btn" style="width:auto; padding:0 12px; height:32px" onclick="showWizard(${u.id})">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button title="حذف المستخدم" class="page-btn delete-btn" style="width:auto; padding:0 12px; height:32px" onclick="openDeleteModal(${u.id})">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             `);
@@ -272,6 +304,37 @@
         });
     }
 
+    // فتح مودال التأكيد
+    function openDeleteModal(id) {
+        userIdToDelete = id;
+        $('#deleteConfirmModal').css('display', 'flex');
+    }
+
+    // تنفيذ الحذف الفعلي
+    function executeDelete(id) {
+        $.ajax({
+            url: `/admin/user/${id}`,
+            method: 'DELETE',
+            headers: { 
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(res) {
+                closeModals();
+                fetchUsers(1); 
+                toastr.success('تم حذف المستخدم بنجاح');
+            },
+            error: function(xhr) {
+                closeModals();
+                let res = xhr.responseJSON;
+                if(res && res.message){
+                    toastr.error(res.message); // رسالة الخطأ من الباك
+                } else {
+                    toastr.error('حدث خطأ أثناء محاولة الحذف');
+                }
+            }
+        });
+    }
+
     function renderPager(meta) {
         const links = $('#pageLinks').empty();
         $('#pageText').text(`عرض ${meta.from || 0} - ${meta.to || 0} من إجمالي ${meta.total} مستخدم`);
@@ -289,8 +352,9 @@
         links.append(`<button class="page-btn" ${meta.current_page === meta.last_page ? 'disabled' : ''} onclick="fetchUsers(${meta.current_page + 1})"><i class="fas fa-chevron-left"></i></button>`);
     }
 
-    function closeWizard() {
+    function closeModals() {
         $('.modal-overlay').hide();
+        userIdToDelete = null;
         switchTab($('.nav-link').first()[0], 'tab-info');
     }
 </script>
