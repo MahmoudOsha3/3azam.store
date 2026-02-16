@@ -11,18 +11,18 @@ class SocialiteController extends Controller
 {
     public function login($provider)
     {
-        $allowedProviders = ['google', 'github'];
+        $allowedProviders = ['google', 'facebook'];
         abort_unless(in_array($provider, $allowedProviders), 404);
         return Socialite::driver($provider)->redirect();
     }
 
     public function redirect($provider)
     {
-        $allowedProviders = ['google', 'github'];
+        $allowedProviders = ['google', 'facebook'];
         abort_unless(in_array($provider, $allowedProviders), 404);
         $socialiteUser = Socialite::driver($provider)->user() ;
 
-        $user = User::where('email', $socialiteUser->getEmail())->first(); // عدم الايميل
+        $user = User::where('email', $socialiteUser->getEmail())->first();
 
         if(! $user){
             $user = User::create([

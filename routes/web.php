@@ -40,3 +40,11 @@ use Illuminate\Support\Facades\Route;
         Route::get('register', 'register')->name('create.view');
         Route::post('create', 'createUser')->name('store.site');
     });
+
+    Route::prefix('app')->name('socialite.')->controller(SocialiteController::class)->group(function(){
+        Route::get('login/{provider}' , 'login')
+            ->where('provider' , 'facebook|google')->name('login') ;
+
+        Route::get('redirect/{provider}' , 'redirect')->name('redirect')
+            ->where('provider', 'facebook|google');
+    });

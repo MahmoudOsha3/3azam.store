@@ -136,7 +136,7 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function countOrderToMonth()
     {
-        $count = Order::whereDate('created_at' , now()->month)->count() ;
+        $count = Order::whereMonth('created_at' , now()->month)->count() ;
         return $count ;
     }
 }

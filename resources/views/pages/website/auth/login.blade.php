@@ -4,12 +4,16 @@
 
 @section('css')
 <style>
+    :root {
+        --primary: #007bff; /* تأكد من تعريف اللون الأساسي إذا لم يكن معرفاً */
+    }
     .auth-wrapper {
         min-height: 80vh;
         display: flex;
         align-items: center;
         justify-content: center;
         background: #f8f9fa; /* خلفية هادئة */
+        padding: 20px 0;
     }
     .auth-card {
         width: 100%;
@@ -64,26 +68,51 @@
     }
     .btn-auth:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,123,255,0.3); }
 
+    /* تنسيق أزرار السوشيال ميديا الجديد */
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 25px 0;
+        color: #ccc;
+    }
+    .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #eee;
+    }
+    .divider:not(:empty)::before { margin-left: .5em; }
+    .divider:not(:empty)::after { margin-right: .5em; }
+
     .social-login {
         display: flex;
         gap: 10px;
-        margin-top: 25px;
+        margin-top: 15px;
     }
     .social-btn {
         flex: 1;
-        padding: 10px;
+        padding: 12px;
         border: 1px solid #eee;
         border-radius: 12px;
         background: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        font-size: 13px;
+        gap: 10px;
+        font-size: 14px;
         font-weight: 600;
         transition: 0.3s;
+        text-decoration: none;
+        color: #333;
     }
-    .social-btn:hover { background: #f8f9fa; }
+    .social-btn:hover { 
+        background: #f8f9fa; 
+        border-color: #ddd;
+        transform: translateY(-2px);
+    }
+    .social-btn i { font-size: 18px; }
+    .btn-google i { color: #DB4437; }
+    .btn-facebook i { color: #4267B2; }
 </style>
 @endsection
 
@@ -100,9 +129,9 @@
             <div class="input-group-custom">
                 <label class="form-label">البريد الإلكتروني</label>
                 <i class="fas fa-envelope"></i>
-                <input type="email" name="email" class="form-control-custom" placeholder="example@mail.com" required>
+                <input type="email" name="email" class="form-control-custom" placeholder="example@mail.com" value="{{ old('email') }}" required>
                 @error('email')
-                    <span style="color:brown">{{ $message }}</span>
+                    <span style="color:brown; font-size: 12px;">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -112,13 +141,26 @@
                 </div>
                 <i class="fas fa-lock"></i>
                 <input type="password" name="password" class="form-control-custom" placeholder="••••••••" required>
-                    @error('password')
-                        <span style="color:brown">{{ $message }}</span>
-                    @enderror
+                @error('password')
+                    <span style="color:brown; font-size: 12px;">{{ $message }}</span>
+                @enderror
             </div>
 
             <button type="submit" class="btn-auth">دخول</button>
         </form>
+
+        <div class="divider small">أو سجل دخول بواسطة</div>
+
+        <div class="social-login">
+            <a href="{{ route('socialite.login' , 'google') }}" class="social-btn btn-google">
+                <i class="fab fa-google"></i>
+                Google
+            </a>
+            <a href="{{ url('auth/facebook') }}" class="social-btn btn-facebook">
+                <i class="fab fa-facebook-f"></i>
+                Facebook
+            </a>
+        </div>
 
         <div class="text-center mt-4">
             <span class="text-muted small">ليس لديك حساب؟</span>
@@ -133,7 +175,6 @@
     let carts = [];
 
     $(document).ready(function() {
-
         fetchCarts();
 
         $(document).on('click', '#openCart', function() {
@@ -143,7 +184,7 @@
 
         $(document).on('click', '#closeCart, #cartOverlay', function() {
             $('#sideCart, #cartOverlay').removeClass('active');
-            $('body').css('overflow', 'auto'); // إعادة التمرير
+            $('body').css('overflow', 'auto'); 
         });
     });
 
@@ -222,7 +263,10 @@
         $.ajax({
             url: `/cart/${id}` ,
             method: 'PUT',
-            data: { quantity: amt },
+            data: { 
+                quantity: amt,
+                _token: '{{ csrf_token() }}' // إضافة التوكن للعمليات التي تحتاج ذلك
+            },
             success: function() {
                 fetchCarts();
             },
@@ -236,10 +280,11 @@
         $.ajax({
             url: `/cart/${id}`,
             method: 'DELETE',
+            data: { _token: '{{ csrf_token() }}' },
             success: function() {
                 fetchCarts();
             },
         });
     }
-    </script>
+</script>
 @endsection

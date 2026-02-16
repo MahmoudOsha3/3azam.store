@@ -346,10 +346,16 @@
                         <a href="#products" class="btn btn-outline-dark btn-lg px-5 py-3">اكتشف المزيد</a>
                     </div>
                 </div>
+                
                 <div class="col-lg-6 text-center">
                     <img src="https://jamalouki.net/uploads/imported_images/uploads/article/default_article/92ba20246f2f364e6907972eaac0150a.webp" class="img-fluid rounded-4 shadow-lg" alt="Main Product">
                     {{-- <img src="https://help.iubenda.com/wp-content/uploads/2023/03/ecommerce-website-builders.png" class="img-fluid rounded-4 shadow-lg" alt="Main Product"> --}}
                 </div>
+                {{-- <div class="col-lg-6 text-center">
+                    <img src="https://files.easy-orders.net/1703623721772750458.jpeg" class="img-fluid rounded-4 shadow-lg" alt="Main Product">
+                </div> --}}
+                    {{-- <img src="https://help.iubenda.com/wp-content/uploads/2023/03/ecommerce-website-builders.png" class="img-fluid rounded-4 shadow-lg" alt="Main Product"> --}}
+
             </div>
         </div>
     </header>
