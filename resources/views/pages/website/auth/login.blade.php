@@ -156,7 +156,7 @@
                 <i class="fab fa-google"></i>
                 Google
             </a>
-            <a href="{{ url('auth/facebook') }}" class="social-btn btn-facebook">
+            <a href="{{ route('socialite.login' , 'facebook') }}" class="social-btn btn-facebook">
                 <i class="fab fa-facebook-f"></i>
                 Facebook
             </a>
