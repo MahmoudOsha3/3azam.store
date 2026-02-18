@@ -29,7 +29,8 @@ class SocialiteController extends Controller
                 'name' => $socialiteUser->getName() ,
                 'email' => $socialiteUser->getEmail() ,
                 'provider_id' => $socialiteUser->getId() ,
-                'provider_type' => $provider
+                'provider_type' => $provider ,
+                'delivery_id' => 1
             ]) ;
         }
 
