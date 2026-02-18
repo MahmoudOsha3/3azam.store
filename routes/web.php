@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Website\{CartController,HomeController, CategoryController, OrderController, PaymentController, ProductController, ProfileController};
-use App\Http\Controllers\Website\{AuthController , SocialiteController , ResetPasswordController};
+use App\Http\Controllers\Website\{AuthController , SocialiteController };
 use Illuminate\Support\Facades\Route;
 
     Route::get('/' , [HomeController::class , 'index'])->name('home');

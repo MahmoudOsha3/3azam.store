@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\User;
 use App\Traits\ManageApiTrait;
 use Illuminate\Http\Request;
@@ -13,11 +14,13 @@ class UserController extends Controller
 
     public function view()
     {
+        $this->authorize('usersView' , Admin::class ) ;
         return view('pages.dashboard.users.index') ;
     }
-    
+
     public function index(Request $request)
     {
+        $this->authorize('usersView' , Admin::class ) ;
         $users = User::with('orders')->filter($request)->latest()->paginate(15);
         return $this->successApi($users , 'Users fetched successfully ');
     }
@@ -29,6 +32,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $this->authorize('userDelete' , Admin::class) ;
         if($user->orders()->count() > 0) {
             return response()->json([
                 'success' => false,

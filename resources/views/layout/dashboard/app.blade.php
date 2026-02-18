@@ -12,6 +12,69 @@
     <script src="{{ asset('js/dashboard/app.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @yield('css')
+    <style>
+    :root {
+        --sidebar-width: 260px;
+        --sidebar-bg: #1a1a2e;
+        --accent-color: #e67e22;
+    }
+
+    .sidebar {
+        width: var(--sidebar-width);
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        background: var(--sidebar-bg);
+        display: flex;
+        flex-direction: column;
+        z-index: 1000;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    }
+
+    /* منطقة البروفايل ثابتة في الأعلى */
+    .profile-card {
+        flex-shrink: 0; /* يمنع انضغاط قسم البروفايل */
+        background: rgba(0,0,0,0.2);
+        padding: 30px 15px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .menu-container {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 15px 10px;
+    }
+
+    /* تخصيص شكل السكرول بار ليناسب التصميم */
+    .menu-container::-webkit-scrollbar {
+        width: 5px;
+    }
+    .menu-container::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.1);
+        border-radius: 10px;
+    }
+
+    /* منطقة الخروج ثابتة في الأسفل */
+    .logout-wrapper {
+        flex-shrink: 0;
+        padding: 15px;
+        background: rgba(0,0,0,0.2);
+        border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        margin-bottom: 5px;
+        border-radius: 10px;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+</style>
 </head>
 <body>
 

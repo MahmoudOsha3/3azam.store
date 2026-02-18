@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard/categories.css') }}">
     <style>
         :root { --primary: #4f46e5; --danger: #ef4444; --success: #10b981; }
-        
+
         /* ستايل معاينة الصورة */
         .image-preview-container {
             width: 100%;
@@ -26,7 +26,7 @@
         .image-preview-container:hover { border-color: var(--primary); background: #f0f1ff; }
         .image-preview-container img { width: 100%; height: 100%; object-fit: cover; display: none; }
         .image-preview-container i { font-size: 30px; color: #94a3b8; }
-        
+
         /* صورة الجدول */
         .cat-img-table {
             width: 45px;
@@ -67,10 +67,10 @@
         <div class="modal-box">
             <h3 id="modalTitle">إضافة قسم جديد</h3>
             <hr style="opacity:0.1; margin-bottom:20px">
-            
+
             <form id="categoryForm" enctype="multipart/form-data">
                 <input type="hidden" id="catId">
-                
+
                 <div class="form-group" style="margin-bottom:15px">
                     <label>اسم القسم</label>
                     <input type="text" id="catTitle" name="name" placeholder="مثلاً: ملابس , احذية...">
@@ -145,7 +145,7 @@
         data.forEach(cat => {
             const parentName = cat.parent ? cat.parent.name : '<span style="color:#94a3b8">قسم أساسي</span>';
             const imgPath = cat.image_url ? `${cat.image_url}` : 'https://via.placeholder.com/50';
-            
+
             tbody.append(`
                 <tr>
                     <td><img src="${imgPath}" class="cat-img-table"></td>
@@ -191,22 +191,22 @@
         let formData = new FormData();
         formData.append('name', name);
         formData.append('parent_id', $('#catParent').val());
-        
+
         const imageFile = document.getElementById('catImage').files[0];
         if (imageFile) {
             formData.append('image', imageFile);
         }
 
         let url = id ? `{{ url('admin/category') }}/${id}` : "{{ route('category.store') }}";
-        
+
         if(id) formData.append('_method', 'PUT');
 
         $.ajax({
             url: url,
-            method: 'POST', 
+            method: 'POST',
             data: formData,
-            processData: false, 
-            contentType: false, 
+            processData: false,
+            contentType: false,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             success: function() {
                 toastr.success("تم حفظ البيانات بنجاح");

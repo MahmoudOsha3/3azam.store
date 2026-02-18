@@ -14,17 +14,20 @@ class CouponController extends Controller
 
     public function view()
     {
+        $this->authorize('viewAny' , Coupon::class) ;
         return view('pages.dashboard.coupons.index') ;
     }
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny' , Coupon::class) ;
         $coupons = Coupon::latest()->filter($request)->paginate(15) ;
         return $this->successApi($coupons , 'Coupons fetched successfully');
     }
 
     public function store(CouponRequest $request)
     {
+        // $this->authorize('create' , Coupon::class) ;
         try{
             $validate = $request->validated() ;
             $coupon = Coupon::create($validate);

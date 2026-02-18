@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Policies\Dashboard\DashboardPolicy;
 use App\Repositories\Api\OrderRepository;
 use App\Repositories\Api\ProductRepository;
 use App\Services\Home\LatestOrdersServices;
@@ -44,6 +46,7 @@ class HomeController extends Controller
     }
     public function index()
     {
+        $this->authorize('dashboardView' , Admin::class) ;
         return view('pages.dashboard.home.index') ;
     }
 }

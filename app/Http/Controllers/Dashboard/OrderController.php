@@ -18,6 +18,7 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('viewAny' , Order::class ) ;
         $orders = $this->orderRepository->getOrders($request);
         return view('pages.dashboard.orders.index' , compact('orders')) ;
     }

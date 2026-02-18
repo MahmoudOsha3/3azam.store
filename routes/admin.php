@@ -42,6 +42,9 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function(){
     Route::put('orders/{order}/paymentStatus' , [OrderController::class , 'changeStatusPayment'])
                 ->name('order.payment.status') ;
 
+    Route::get('welcome' , function(){
+        return view('pages.dashboard.dashboardFake.index') ;
+    })->name('dashboard.welcome');
 
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

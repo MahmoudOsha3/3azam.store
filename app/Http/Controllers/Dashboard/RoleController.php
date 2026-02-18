@@ -13,9 +13,10 @@ class RoleController extends Controller
 
     public function view()
     {
+        $this->authorize('viewAny' , Role::class ) ;
         return view('pages.dashboard.rolesAndPermissions.index') ;
     }
-    
+
     public function index()
     {
         $data['roles'] = Role::with('permissions')->get() ;

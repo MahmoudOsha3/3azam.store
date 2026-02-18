@@ -22,7 +22,7 @@ class Authenticate extends Middleware
             return route('login');
         }
         if (! $request->expectsJson()) { // api
-            return route('user.create.view') ;
+            return route('user.login.view') ;
         }
     }
 }

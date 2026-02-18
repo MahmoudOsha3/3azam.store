@@ -315,12 +315,12 @@
         $.ajax({
             url: `/admin/user/${id}`,
             method: 'DELETE',
-            headers: { 
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(res) {
                 closeModals();
-                fetchUsers(1); 
+                fetchUsers(1);
                 toastr.success('تم حذف المستخدم بنجاح');
             },
             error: function(xhr) {

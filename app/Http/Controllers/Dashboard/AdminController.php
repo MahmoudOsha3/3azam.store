@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\AdminRequest;
 use App\Models\Admin;
+use App\Policies\Dashboard\DashboardPolicy;
 use App\Traits\ManageApiTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -15,11 +16,13 @@ class AdminController extends Controller
 
     public function view()
     {
+        $this->authorize('AdminsView' , Admin::class ) ;
         return view("pages.dashboard.admins.index") ;
     }
-    
+
     public function index()
     {
+        $this->authorize('AdminsView' , Admin::class ) ;
         $admins = Admin::with('role')->paginate(10) ;
         return $this->successApi($admins , 'Admins fetched successfully') ;
     }

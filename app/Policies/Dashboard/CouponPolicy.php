@@ -5,7 +5,7 @@ namespace App\Policies\Dashboard;
 use App\Policies\ModelPolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RolePolicy  extends ModelPolicy
+class CouponPolicy extends ModelPolicy
 {
     use HandlesAuthorization;
 

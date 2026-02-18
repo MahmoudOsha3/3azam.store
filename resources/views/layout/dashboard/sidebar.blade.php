@@ -36,7 +36,9 @@
     </div>
 
     <div class="menu-container" style="padding: 10px; flex-grow: 1; overflow-y: auto;">
-        @foreach (config('sidebar') as $key => $properties)
+        @foreach (\App\Services\Sidebar\SidebarService::items() as $key => $properties)
+
+        {{-- @foreach (config('sidebar') as $key => $properties) --}}
             <a href="{{ url($properties['route']) }}" class="menu-item"
                style="{{ $isActive($properties['active']) ? 'background: var(--primary); color: white;' : 'color: #a4b0be;' }}"
                onmouseover="if(!{{ $isActive($properties['active']) ? '1' : '0' }}) this.style.background='rgba(255,255,255,0.05)';"

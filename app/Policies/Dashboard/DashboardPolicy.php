@@ -3,7 +3,6 @@
 namespace App\Policies\Dashboard;
 
 use App\Models\Admin;
-use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DashboardPolicy
@@ -20,31 +19,6 @@ class DashboardPolicy
         return $admin->hasPermission('dashboard.view') ;
     }
 
-    public function cashierView(Admin $admin)
-    {
-        return $admin->hasPermission('cashier.view') ;
-    }
-
-    public function cashierCreate(Admin $admin)
-    {
-        return $admin->hasPermission('cashier.create') ;
-    }
-
-    public function cashierHistory(Admin $admin)
-    {
-        return $admin->hasPermission('cashier.show') ;
-    }
-
-    public function roleView(Admin $admin)
-    {
-        return $admin->hasPermission('role.view');
-    }
-
-    public function InvoiceView(Admin $admin)
-    {
-        return $admin->hasPermission('invoice.view');
-    }
-
     public function ordersView(Admin $admin)
     {
         return $admin->hasPermission('order.view');
@@ -55,13 +29,30 @@ class DashboardPolicy
         return $admin->hasPermission('admin.view');
     }
 
-    public function reportsView(Admin $admin)
+    public function DeliveryView(Admin $admin)
     {
-        return $admin->hasPermission('report.view') ;
+        return $admin->hasPermission('delivery.view');
     }
+
+    public function deliveryUpdate(Admin $admin)
+    {
+        return $admin->hasPermission('delivery.update');
+    }
+
 
     public function usersView(Admin $admin)
     {
         return $admin->hasPermission('user.view') ;
     }
+
+    public function userDelete(Admin $admin)
+    {
+        return $admin->hasPermission('user.delete') ;
+    }
+
+    public function paymentsView(Admin $admin)
+    {
+        return $admin->hasPermission('payment.view') ;
+    }
+
 }

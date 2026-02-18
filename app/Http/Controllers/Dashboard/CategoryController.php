@@ -19,12 +19,14 @@ class CategoryController extends Controller
     }
 
     public function view(){
+        $this->authorize('viewAny' , Category::class ) ;
         $categories = Category::all() ; // for select form
         return view('pages.dashboard.categories.index' , compact('categories'));
     }
 
     public function index()
     {
+        $this->authorize('viewAny' , Category::class ) ;
         $categories = Category::with('parent')->latest()->get() ;
         return $this->successApi($categories , 'Categories fetched successfully') ;
     }

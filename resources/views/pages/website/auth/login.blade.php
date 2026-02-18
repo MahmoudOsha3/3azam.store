@@ -105,8 +105,8 @@
         text-decoration: none;
         color: #333;
     }
-    .social-btn:hover { 
-        background: #f8f9fa; 
+    .social-btn:hover {
+        background: #f8f9fa;
         border-color: #ddd;
         transform: translateY(-2px);
     }
@@ -156,10 +156,10 @@
                 <i class="fab fa-google"></i>
                 Google
             </a>
-            <a href="{{ route('socialite.login' , 'facebook') }}" class="social-btn btn-facebook">
+            {{-- <a href="{{ route('socialite.login' , 'facebook') }}" class="social-btn btn-facebook">
                 <i class="fab fa-facebook-f"></i>
                 Facebook
-            </a>
+            </a> --}}
         </div>
 
         <div class="text-center mt-4">
@@ -184,7 +184,7 @@
 
         $(document).on('click', '#closeCart, #cartOverlay', function() {
             $('#sideCart, #cartOverlay').removeClass('active');
-            $('body').css('overflow', 'auto'); 
+            $('body').css('overflow', 'auto');
         });
     });
 
@@ -263,7 +263,7 @@
         $.ajax({
             url: `/cart/${id}` ,
             method: 'PUT',
-            data: { 
+            data: {
                 quantity: amt,
                 _token: '{{ csrf_token() }}' // إضافة التوكن للعمليات التي تحتاج ذلك
             },

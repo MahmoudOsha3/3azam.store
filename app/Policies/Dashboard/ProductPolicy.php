@@ -5,17 +5,13 @@ namespace App\Policies\Dashboard;
 use App\Policies\ModelPolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class RolePolicy  extends ModelPolicy
+class ProductPolicy extends ModelPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         //
     }
+
+
 }

@@ -21,7 +21,7 @@ return [
         'icon' => 'fas fa-chart-pie' ,
         'label' => 'المنتجات',
         'active' => ['admin/products']  ,
-        'permission' => 'meal.view' ,
+        'permission' => 'product.view' ,
     ] ,
 
     'orders' => [
@@ -70,7 +70,7 @@ return [
         'icon' => 'fas fa-history' ,
         'label' => 'سجل المدفوعات',
         'active' => ['admin/payments']  ,
-        'permission' => 'payment.show' ,
+        'permission' => 'payment.view' ,
     ],
 
     'admins' => [

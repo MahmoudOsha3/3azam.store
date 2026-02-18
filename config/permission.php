@@ -29,6 +29,7 @@ return [
 
     'user.view' => 'مشاهدة المستخدمين' ,
     'user.show' => 'عرض ملف مستخدم' ,
+    'user.delete' => 'حذف مستخدم' ,
 
     'role.view' => 'مشاهدة الادوار' ,
     'role.create' => 'إنشاء دور',
@@ -36,4 +37,6 @@ return [
 
     'delivery.view' => 'مشاهدة رسوم التوصيل' ,
     'delivery.update' => 'تعديل  قيمة الرسوم' ,
+
+    'payment.view' => 'سجل المدفوعات' ,
 ];

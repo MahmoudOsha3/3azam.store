@@ -32,10 +32,15 @@ class AuthController extends Controller
                 ['email' => 'البريد الإلكتروني أو كلمة المرور غير صحيحة'])
                         ->withInput();
         }
+        session(['login_time' => now()->format('h:i A')]);
         Auth::guard('admin')->login($admin);
         $request->session()->regenerate();
+        if($admin->role->name === 'admin'){
+            return to_route('dashboard') ;
+        }else{
+            return to_route('dashboard.welcome') ;
+        }
 
-        return to_route('dashboard') ;
     }
 
 
